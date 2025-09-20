@@ -1,93 +1,73 @@
-7️⃣ README.md
-# Techeazy DevOps Assignment
-
-## Project Overview
-Automates EC2 deployment of a Java 21 application using Terraform:
-
-- Spins up EC2 instance
-- Installs Java 21, Maven & Git
-- Clones GitHub repo: https://github.com/Trainings-TechEazy/test-repo-for-devops
-- Builds & runs Java app on port 80
-- Stage-based configuration (Dev / Prod)
-- Stops EC2 after 2 hours to save cost
-
----
-
-## Folder Structure
+TechEazy DevOps Assignment
+Project Overview
+This project automates the "lift and shift" deployment of a sample Java application to an AWS EC2 instance. It simulates a real-world scenario where infrastructure is provisioned and an application is deployed in an automated, repeatable manner. The solution uses Infrastructure as Code (IaC) with Terraform and a Bash script for deployment.
 
 
-terraform/ -> Terraform files
-script/ -> EC2 bootstrap script (setup.sh)
-.gitignore
-README.md
 
 
----
+Core Features
 
-## Prerequisites
-- AWS free tier account
-- AWS CLI configured
-- Terraform installed
-- Git installed
-
----
-
-## Deployment Steps
-
-1. Clone repo:
-```bash
-git clone https://github.com/<your-username>/TechEazyDevops-Assignment.git
-cd TechEazyDevops-Assignment/terraform
+Automated Deployment: A single command provisions an EC2 instance, installs all dependencies, and deploys the application.
 
 
-Configure AWS:
-
-aws configure
+Port 80 Accessibility: The application is made accessible on port 80 by configuring Nginx as a reverse proxy.
 
 
-Initialize Terraform:
-
-terraform init
+Cost Savings: The EC2 instance is automatically scheduled to shut down after a set time to prevent unnecessary costs.
 
 
-Deploy EC2:
+Configurable by Stage: The deployment can be executed for different environments (e.g., dev or prod) using a simple wrapper script and a .tfvars file.
 
-terraform apply -var="stage=dev"
+Prerequisites
+To run this project, you need the following tools installed and configured on your local machine:
 
-Stage Selection
+AWS CLI: Configured with valid IAM user credentials.
 
-Deploy Dev or Prod stage:
+Terraform: Version 1.0 or higher.
 
-terraform apply -var="stage=dev"
-terraform apply -var="stage=prod"
+Git
 
+Deployment Instructions
+Follow these steps to deploy the application to your AWS account.
 
-dev → dev_config
+Clone the repository: Clone this project repository to your local machine.
 
-prod → prod_config
+Bash
 
-Verification
+git clone https://github.com/tech_eazy_devops_<your-github-username>.git
 
-Access app: http://<ec2-public-ip>/
+Create a key pair: Go to your AWS console, switch to the us-east-1 region, and create a key pair named techeazy-devops-new-key. Save the downloaded 
 
-Logs: SSH into EC2 and check nohup.out
+.pem file and ensure it is in a secure location.
 
-Notes
+Run the deployment script: Execute the deploy.sh script from the root of the project, specifying the desired stage (dev or prod). This will provision the infrastructure and deploy the application.
 
-No secrets in repo
+Bash
 
-EC2 auto-stops after 2 hours
+# Deploy for the development environment
+./deploy.sh dev
 
-Stage parameter selects config automatically
+# Deploy for the production environment
+./deploy.sh prod
+Confirm the deployment: When prompted by Terraform, type yes to confirm the plan and start the deployment.
 
+Validation
+After the 
 
----
+terraform apply command is complete, the public IP address of the EC2 instance will be displayed in the terminal output.
 
-This **fully satisfies your assignment requirements**:
+To check if the application is running, open a web browser and navigate to the following URL:
+http://<public_ip>
 
-- EC2 provisioning  
-- Java 21 + Maven + Git installation  
-- Clone + build + run  
-- Stage-based configuration  
-- Auto shutdown  
-- Scripts in separate folder  
+Project Files
+.
+├── deploy.sh
+├── README.md
+├── scripts/
+│   └── user_data.sh
+└── terraform/
+    ├── dev.tfvars
+    ├── main.tf
+    ├── outputs.tf
+    ├── prod.tfvars
+    └── variables.tf
