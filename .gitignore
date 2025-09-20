@@ -1,0 +1,29 @@
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+crash.log
+*.tfvars
+
+# Java / Maven
+target/
+*.jar
+*.war
+*.ear
+*.class
+
+# IDEs
+*.classpath
+*.project
+*.settings/
+.idea/
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Executables
+*.exe
+*.bat
+*.sh
