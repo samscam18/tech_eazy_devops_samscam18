@@ -54,6 +54,7 @@ After completing Assignment 2, the project now includes an additional Terraform 
 
 ---
 
+text
 ## Project Structure
 
 .
@@ -77,6 +78,7 @@ After completing Assignment 2, the project now includes an additional Terraform 
 └── variables.tf
 
 text
+
 
 ---
 
